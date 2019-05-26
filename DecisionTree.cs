@@ -47,10 +47,10 @@ namespace CreditCardDefault
 
             foreach (var item in root.NodeAttribute.DifferentAttributeNames)
             {
-                // if a leaf, leaf will be added in this method
+                // if its a leaf, add leaf
                 var isLeaf = CheckIfIsLeaf(root, data, item);
 
-                // make a recursive call as long as the node is not a leaf
+                // if node is not a leaf, make recursive call
                 if (!isLeaf)
                 {
                     var reducedTable = CreateSmallerTable(data, item, root.TableIndex);
@@ -66,7 +66,7 @@ namespace CreditCardDefault
             var isLeaf = true;
             var allEndValues = new List<string>();
 
-            // get all leaf values for the attribute in question
+            // get all leaf values for the attribute 
             for (var i = 0; i < data.Rows.Count; i++)
             {
                 if (data.Rows[i][root.TableIndex].ToString().Equals(attributeToCheck))
@@ -96,14 +96,14 @@ namespace CreditCardDefault
             var highestInformationGainIndex = -1;
             var highestInformationGain = double.MinValue;
 
-            // Get all names, amount of attributes and attributes for every column             
+                  
             for (var i = 0; i < data.Columns.Count - 1; i++)
             {
                 var differentAttributenames = attrib.GetDifferentAttributeNamesOfColumn(data, i);
                 attributes.Add(new attrib(data.Columns[i].ToString(), differentAttributenames));
             }
 
-            // Calculate Entropy (S)
+           
             var tableEntropy = CalculateTableEntropy(data);
 
             for (var i = 0; i < attributes.Count; i++)
@@ -294,11 +294,7 @@ namespace CreditCardDefault
                     if (item.Equals(seperatedResult[0]))
                     {
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                    }
-                    else if (item.Equals("--") || item.Equals("-->"))
-                    {
-                        // empty if but better than checking at .ToUpper() and .ToLower() if
-                    }
+                    }                    
                     else if (item.Equals("YES") || item.Equals("NO"))
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -306,6 +302,10 @@ namespace CreditCardDefault
                     else if (item.ToUpper().Equals(item))
                     {
                         Console.ForegroundColor = ConsoleColor.Cyan;
+                    }
+                    else if (item.Equals("--") || item.Equals("-->"))
+                    {
+
                     }
                     else
                     {
